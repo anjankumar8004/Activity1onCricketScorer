@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+<div class="container">
+    <h2>Cricket Scorer!</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <label >Team Name 1 </label>
+      <input type="text" id="t1" name="t1"  onkeypress="return lettersValidate(event)" ><br><br>
+      <label>Team Name 2</label>
+      <input type="text" id="t2" name="t2"  onkeypress="return lettersValidate(event)"><br><br>
+    </div>
+    <div class="col-md-6">
+      <label>Score 1</label>
+      <input type="text" id="s1"><br><br>
+      <label>Score 2</label>
+      <input type="text" id="s2"><br><br>    
+    </div>
+    <p style="color:green;margin-left:50%" id="msg"></p>
+  </div>
+  <input type="submit" value="Result" onclick="return calculate();">
+</div>
+
+</body>
+</html>
+<script>
+ 
+function lettersValidate(key) {
+    var keycode = (key.which) ? key.which : key.keyCode;
+
+    if ((keycode > 64 && keycode < 91) || (keycode > 96 && keycode < 123))  
+    {     
+           return true;    
+    }
+    else
+    {
+        return false;
+    }         
+}
+
+function calculate()
+{
+  var t1=document.getElementById("t1").value;
+  var t2=document.getElementById("t2").value;
+  var s1=document.getElementById("s1").value;
+  var s2=document.getElementById("s2").value;
+  if(t1 == "") 
+  {
+  	alert("team1 name is Required!");
+    return false;
+  }
+   if(t2 == "") 
+  {
+  	alert("team2 name is Required!!");
+    return false;
+  }
+   if(t1==t2)
+  {
+      alert("Teams name should not be same!");
+      return false;
+  }
+   if(s1 == "") 
+  {
+  	alert("Score 1 is Required!");
+    return false;
+  }
+   if(s2 == "") 
+  {
+  	alert("Score 2 is Required!");
+    return false;
+  }
+ 
+  
+  
+  var regExp = /^[0-9]{0,3}\/[0-9]|[10]$/;
+  if(!regExp.test(s1))
+  {
+    alert("Score 1 should be in format of rrr/ww.(Runs/wickets)!")
+  }
+  if(!regExp.test(s2))
+  {
+    alert("Score 2 should be in format of rrr/ww.(Runs/wickets)!")
+  }
+  let ss1=s1.substr(0, 3);
+  let ss2=s2.substr(0, 3);
+  if(parseInt(ss2)>parseInt(ss1)+7)
+  {
+  	alert("Invalid Input!")
+    return false;
+  }
+  
+  if(ss1>ss2)
+  {
+  		document.getElementById("msg").innerHTML = t1+ " is the Winner!";
+        return false;
+  }
+  else
+  {
+  		document.getElementById("msg").innerHTML = t2+ " is the Winner!";
+         return false;
+  }
+}
+ 
+</script>
